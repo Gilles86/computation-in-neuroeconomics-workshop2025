@@ -1,53 +1,26 @@
 # Computation in Neuroeconomics Workshop 2025
 
-Welcome to the workshop on computational techniques in Neuroeconomics 2025! In this github repo you will find all the information, slides, code, environments you need!
+Welcome to the workshop on computational techniques in Neuroeconomics 2025!  
+In this repository you will find all the information, slides, code, and environments you need.
+
+---
 
 ## Install environment
-### Why Install the Conda Environments?
 
-This workshop provides two Conda environment files to ensure everyone can run the code smoothly, regardless of their specific setup:
+### Why install the Conda environments?
 
-- **`environment.yml`**: The standard environment for most users (Windows, Linux, or Intel-based Macs).
-- **`environment_metal.yml`**: Specifically optimized for MacBooks with Apple Silicon (M1/M2/M3 chips). This environment leverages the Metal framework for accelerated computation, which is native to Apple’s ARM architecture.
+This workshop provides three Conda environment files to ensure everyone can run the code smoothly, regardless of setup:
 
+- **`environment.yml`** — Standard environment for most users (Windows, Linux, Intel-based Macs).  
+- **`environment_metal.yml`** — Optimized for Apple Silicon (M1/M2/M3), using Metal for GPU acceleration.  
+- **`environment_gpu.yml`** — For use on the UZH ScienceCluster (with CUDA + GPUs).
 
-#### GPU environment for *Sciencecluster*
-The **`environment_gpu.yml` is specifically for running on the cluster.
+---
 
-For this to work you need to have installed cuda. If you haven't yet. Open an interactive note (note: skip if you have installed conda already on your sciencecluster-account)
+## Installation on your own machine
 
-```
-srun --
-```
-
-Then install mambaforge:
-```
-```
-
-Then exit the CPU node.
-
-Open a GPU node:
-
-```
-srun --gres: ....
-```
-
-And install the environment
-```
-# Load CUDA drivers
-module load cuda
-
-# Go to the environment directory
-cd /path/to/this/project
-cd environments
-
-# install environment
-conda -f environment_gpu.yml
-```
-
-### How to Install the Conda Environments
-
-1. **Install Conda**: If you don’t have Conda installed, download and install [Miniconda](https://docs.conda.io/en/latest/miniconda.html) or [Anaconda](https://www.anaconda.com/download).
+1. **Install Conda or Mamba**  
+   - Download [Mambaforge](https://github.com/conda-forge/miniforge#mambaforge) (recommended) or [Miniconda](https://docs.conda.io/en/latest/miniconda.html).  
 
 2. **Navigate to the `environments` folder**:
    ```bash
@@ -55,11 +28,11 @@ conda -f environment_gpu.yml
    ```
 
 3. **Create the environment**:
-   - For **Intel-based Macs, Windows, or Linux**:
+   - For **Windows, Linux, Intel Macs**:
      ```bash
      conda env create -f environment.yml
      ```
-   - For **MacBooks with M1/M2/M3 chips**:
+   - For **Apple Silicon Macs**:
      ```bash
      conda env create -f environment_metal.yml
      ```
@@ -68,21 +41,76 @@ conda -f environment_gpu.yml
    ```bash
    conda activate neuroeconomics_2025
    ```
-   *(Replace `neuroeconomics_2025` with the actual environment name specified in the `.yml` file, if different.)*
+   *(Replace `neuroeconomics_2025` with the actual name from the `.yml` file if different.)*
 
-5. **Verify the installation** (optional):
-   Run the provided `check_for_gpu.py` script to ensure your environment is correctly set up and detects your hardware:
+5. **Optional: verify GPU support**:
    ```bash
    python check_for_gpu.py
    ```
 
+---
+
+## Installation on the UZH ScienceCluster
+
+On the ScienceCluster, you **must not install environments in `$HOME`** (limited quota).  
+Always use `/data/$USER` for Conda/Mamba and environments.  
+See also the official docs: [How to use Conda on the ScienceCluster](https://docs.s3it.uzh.ch/how-to_articles/how_to_use_conda/).
+
+### Step 1: Load Mamba (recommended)
+```bash
+module load mamba
+```
+
+Configure Conda to always place envs/packages in `/data/$USER` by creating `~/.condarc`:
+```yaml
+envs_dirs:
+  - /data/$USER/conda/envs
+pkgs_dirs:
+  - /data/$USER/conda/pkgs
+```
+
+*(Alternatively, you can install your own Mambaforge under `/data/$USER/mambaforge`, but `module load mamba` is preferred.)*
+
+---
+
+### Step 2: Open a GPU node
+TensorFlow must be installed on a GPU node so it links correctly to CUDA libraries:
+```bash
+srun --gres=gpu:1 --time=60:00 --mem=32G --cpus-per-task=8 --pty bash
+```
+
+---
+
+### Step 3: Load CUDA drivers
+```bash
+module load gpu
+module load cuda/11.8   # adjust version if needed
+```
+
+---
+
+### Step 4: Create the GPU environment
+Navigate to the repo’s `environments` folder and create the environment:
+```bash
+cd /data/$USER/computation-in-neuroeconomics-workshop2025/environments
+mamba env create -f environment_gpu.yml
+```
+
+---
+
+### Step 5: Activate
+```bash
+conda activate soglio_cuda
+```
+
+---
+
 ## Slides and resources
 
-
 ### Slides
-You can find the raw markdown, PDF, and HTML versions of the slides in the [slides](./slides)-directory.
+You can find the raw Markdown, PDF, and HTML versions of the slides in the [slides](./slides) directory.
 
-## Further reading
+### Further reading
+- [Braincoder tutorials](https://braincoder-devs.github.io/)  
+- [TensorFlow guide](https://www.tensorflow.org/guide)  
 
- - [Braincoder tutorials](https://braincoder-devs.github.io/)
- - [Tensorflow manual](https://www.tensorflow.org/guide)
