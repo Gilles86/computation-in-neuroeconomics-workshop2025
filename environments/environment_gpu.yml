@@ -1,0 +1,21 @@
+name: soglio_cuda
+channels:
+  - conda-forge
+  - nvidia
+dependencies:
+  - python=3.11
+  - numpy=1.26
+  - matplotlib=3.8
+  - seaborn
+  - pandas
+  - jupyterlab=4.0
+  - pip
+  - cudatoolkit=11.8
+  - cudnn=8.6.0
+  - pip:
+    - tensorflow==2.16.1
+    - tensorboard==2.16.0
+    - tf2onnx==1.16.0
+    - onnx==1.15.0
+    - pydot==2.0.0
+    - graphviz==0.20.1
