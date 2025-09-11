@@ -12,6 +12,7 @@ dependencies:
   - pip
   - cudatoolkit=11.8
   - cudnn=8.6.0
+  - cuda-version=11.8
   - pip:
     - tensorflow==2.16.1
     - tensorboard==2.16.0
