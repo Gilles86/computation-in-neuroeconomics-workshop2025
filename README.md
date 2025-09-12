@@ -109,6 +109,33 @@ conda activate soglio_cuda
 
 ---
 
+### Step 6: Check for GPU
+You can use the script `check_for_gpu.py` to check whether Tensorflow can find you GPU:
+
+```bash
+python check_for_gpu.py
+```
+
+Which should output something like
+```bash
+2025-09-12 12:19:11.012999: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-09-12 12:19:11.047671: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:10575] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2025-09-12 12:19:11.047719: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:479] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2025-09-12 12:19:11.049371: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1442] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2025-09-12 12:19:11.055219: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+TensorFlow version: 2.16.2
+NumPy version: 1.26.4
+GPU devices: [PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')]
+2025-09-12 12:19:14.321458: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1928] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 31134 MB memory:  -> device: 0, name: Tesla V100-SXM2-32GB, pci bus id: 0000:89:00.0, compute capability: 7.0
+DDM test successful: (1000, 100)
+```
+
+(Don't worry about the warnings about oneDNN, cuDNN, etc. This is fine. The point is that it finds `GPU devices: [PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')]`)
+
+
+----
+
 ## Slides and resources
 
 ### Slides
