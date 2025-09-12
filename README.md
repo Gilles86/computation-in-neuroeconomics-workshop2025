@@ -1,9 +1,23 @@
+## Cloning this repository
+
+To clone this repository locally or remotely, use the following commands in your terminal:
+
+```bash
+# Recommended location
+cd $HOME/git
+
+# Clone via HTTPS
+git clone https://github.com/Gilles86/computation-in-neuroeconomics-workshop2025.git
+
+# Or clone via SSH (if you have SSH keys set up)
+git clone git@github.com:Gilles86/computation-in-neuroeconomics-workshop2025.git
+```
+
+This guide assumes you place the repository in `$HOME/git/computation-in-neuroeconomics-workshop2025`.
 # Computation in Neuroeconomics Workshop 2025
 
 Welcome to the workshop on computational techniques in Neuroeconomics 2025!  
 In this repository you will find all the information, slides, code, and environments you need.
-
----
 
 ## Install environment
 
@@ -71,15 +85,11 @@ pkgs_dirs:
 
 *(Alternatively, you can install your own Mambaforge under `/data/$USER/mambaforge`, but `module load mamba` is preferred.)*
 
----
-
 ### Step 2: Open a GPU node
 TensorFlow must be installed on a GPU node so it links correctly to CUDA libraries:
 ```bash
 srun --gres=gpu:1 --time=60:00 --mem=32G --cpus-per-task=8 --pty bash
 ```
-
----
 
 Then load mamba:
 ```bash
@@ -91,8 +101,6 @@ module load mamba
 module load gpu
 ```
 
----
-
 ### Step 4: Create the GPU environment
 Navigate to the repo’s `environments` folder and create the environment:
 ```bash
@@ -100,14 +108,10 @@ cd /$HOME/git/computation-in-neuroeconomics-workshop2025/environments # replace 
 mamba env create -f environment_gpu.yml
 ```
 
----
-
 ### Step 5: Activate
 ```bash
 conda activate soglio_cuda
 ```
-
----
 
 ### Step 6: Check for GPU
 You can use the script `check_for_gpu.py` to check whether Tensorflow can find you GPU:
@@ -133,8 +137,6 @@ DDM test successful: (1000, 100)
 
 (Don't worry about the warnings about oneDNN, cuDNN, etc. This is fine. The point is that it finds `GPU devices: [PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')]`)
 
-
-----
 
 ## Slides and resources
 
