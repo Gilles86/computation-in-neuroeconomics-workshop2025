@@ -108,9 +108,9 @@ cd /$HOME/git/computation-in-neuroeconomics-workshop2025/environments # replace 
 mamba env create -f environment_gpu.yml
 ```
 
-### Step 5: Activate
+### Step 5: Activate new gpu environment
 ```bash
-conda activate soglio_cuda
+conda activate soglio_gpu
 ```
 
 ### Step 6: Check for GPU
