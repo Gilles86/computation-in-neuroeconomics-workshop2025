@@ -1,17 +1,13 @@
-name: soglio_cuda
+name: soglio_gpu
 channels:
-  - conda-forge
   - nvidia
+  - conda-forge
 dependencies:
   - python=3.11
+  - tensorflow-gpu=2.16
+  - cuda=12.6  # Standard package, not -dev
   - numpy=1.26
   - matplotlib=3.8
   - seaborn
   - pandas
   - jupyterlab=4.0
-  - pip
-  - cudatoolkit=11.8
-  - cuda-version=11.8
-  - pip:
-    - tensorflow==2.16.1
-    - tensorboard==2.16.0

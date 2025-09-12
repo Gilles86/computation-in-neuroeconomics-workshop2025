@@ -81,10 +81,14 @@ srun --gres=gpu:1 --time=60:00 --mem=32G --cpus-per-task=8 --pty bash
 
 ---
 
+Then load mamba:
+```bash
+module load mamba
+```
+
 ### Step 3: Load CUDA drivers
 ```bash
 module load gpu
-module load cuda/11.8   # adjust version if needed
 ```
 
 ---
@@ -92,7 +96,7 @@ module load cuda/11.8   # adjust version if needed
 ### Step 4: Create the GPU environment
 Navigate to the repo’s `environments` folder and create the environment:
 ```bash
-cd /data/$USER/computation-in-neuroeconomics-workshop2025/environments
+cd /$HOME/git/computation-in-neuroeconomics-workshop2025/environments # replace with whatever you use
 mamba env create -f environment_gpu.yml
 ```
 
