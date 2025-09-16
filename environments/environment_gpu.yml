@@ -11,3 +11,5 @@ dependencies:
   - seaborn
   - pandas
   - jupyterlab=4.0
+  - seaborn
+  - scikit-learn

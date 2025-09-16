@@ -9,6 +9,8 @@ dependencies:
   - pandas
   - jupyterlab=4.0
   - pip
+  - seaborn
+  - scikit-learn
   - pip:
     - tensorflow-macos==2.16.1  # Closest available to 2.16.0
     - tensorflow-metal==1.1.0
