@@ -13,3 +13,5 @@ dependencies:
   - jupyterlab=4.0
   - seaborn
   - scikit-learn
+  - pip:
+      - git+https://github.com/Gilles86/braincoder.git@transformation_refactor
