@@ -137,5 +137,5 @@ Approximate (bounded) distributions using large arrays (vectorize, vectorize, ve
 
 ---
 ### Assignment 5: Efficient coding
- - We wil now go over some code together.
+ - We wil now go over some code together in `notebooks/5_efficient_coding.ipynb`
 

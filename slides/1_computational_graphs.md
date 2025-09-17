@@ -361,11 +361,8 @@ result = np.dot(A, B)  # Calls BLAS (compiled C/Fortran)
 ---
 ### The Future: Computational Graph Libraries
 
-<div class="two-col two-col">
-
-
-
-<div class="col text-small">
+<div class="two-col two-col--70-30">
+<div class="col text-medium">
 
 **1. Key Idea**
 Represent your computational problem as a *graph*.
@@ -415,40 +412,59 @@ How would you guys implement this?
 
 
 ---
+<!-- footer: '' -->
 ### DDM simulation in Tensorflow
 ``` python
 @tf.function
 def ddm_tensorflow(n_trials=1000, max_t=10.0, dt=0.001, drift=0.1, noise=0.1, bound=1.0):
     n_steps = int(max_t / dt)
 
-      # Generate all noise terms at once
-      noise_terms = noise * tf.sqrt(dt) * tf.random.normal([n_trials, n_steps])
+    # Generate all noise terms at once
+    noise_terms = noise * tf.sqrt(dt) * tf.random.normal([n_trials, n_steps])
 
-      # Create evidence trajectory (n_trials × n_steps)
-      drift_terms = tf.ones([n_trials, n_steps]) * drift * dt
-      evidence = tf.cumsum(drift_terms + noise_terms, axis=1)
+    # Create evidence trajectory (n_trials × n_steps)
+    drift_terms = tf.ones([n_trials, n_steps]) * drift * dt
+    evidence = tf.cumsum(drift_terms + noise_terms, axis=1)
 
-      # Add initial zeros
-      evidence = tf.pad(evidence, [[0, 0], [1, 0]], constant_values=0.0)
+    # Add initial zeros
+    evidence = tf.pad(evidence, [[0, 0], [1, 0]], constant_values=0.0)
 
-      # Find crossing times
-      crossed_up = evidence >= bound
-      crossed_down = evidence <= -bound
-      crossed = crossed_up | crossed_down
+    # Find crossing times
+    crossed_up = evidence >= bound
+    crossed_down = evidence <= -bound
+    crossed = crossed_up | crossed_down
 
-      # Get first crossing time
-      rts = tf.where(
-          tf.reduce_any(crossed, axis=1),
-          dt * tf.cast(tf.argmax(tf.cast(crossed, tf.int32), axis=1), tf.float32),
-          tf.constant(max_t, dtype=tf.float32)
+    # Get first crossing time
+    rts = tf.where(
+        tf.reduce_any(crossed, axis=1),
+        dt * tf.cast(tf.argmax(tf.cast(crossed, tf.int32), axis=1), tf.float32),
+        tf.constant(max_t, dtype=tf.float32)
 )
 
-      # Determine responses
-      responses = tf.where(tf.reduce_any(crossed_up, axis=1),
-                          1,
-                          tf.where(tf.reduce_any(crossed_down, axis=1),
-                                  0,
-                                  tf.random.uniform([n_trials], 0, 2, tf.int32)))
+    # Determine responses
+    responses = tf.where(tf.reduce_any(crossed_up, axis=1),
+                        1,
+                        tf.where(tf.reduce_any(crossed_down, axis=1),
+                                0,
+                                tf.random.uniform([n_trials], 0, 2, tf.int32)))
 
-      return responses, rts
+    return responses, rts
 ```
+
+
+---
+### Graph demo
+
+<div class="two-col vcenter center">
+
+![width:600px](resources/tf_graph.png)
+
+</div>
+
+
+`notebooks/1_computational_graphs.ipynb`
+
+
+---
+### Assignment 1
+Open `notebooks/2_ddm_fast_and_slow.ipynb`

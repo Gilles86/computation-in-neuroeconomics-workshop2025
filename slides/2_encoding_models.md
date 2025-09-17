@@ -235,6 +235,8 @@ where $\theta = \{\mu_x, \mu_y, \sigma, A, b\}$.
 
 *Implement a simple visuospatial PRF model using Tensorflow/Jax/Pytorch.*
 
+`notebooks/3_implement_prf.ipynb`
+
 </div>
 <div class="col">
 
@@ -271,25 +273,36 @@ prf = get_prf(...) # (n_prfs, n_x_coordinates, n_y_coordinates)
 </div>
 
 ---
-### Hint 2: Broadcasting
+
+##### Hint 2: Broadcasting
 
 <div class="text-small">
 
- * Let's say we have a single stimulus array `S` (n_timepoints, n_x, n_y) and we have 1000 PRFs `prf` (1000, n_x, n_y).
-
- * To **vectorize** we need to go to a 4D space (e.g., n_timepoints, n_stimuli, n_x, n_y).
-
- * But rather than `repmat` everything to a 214,000,000-element (238, 1000, 30, 30)-space,
-we can use **broadcasting** to *combine* a 214,000 element space (238, 1, 30, 30) and a
-900,000 element space (1, 100, 30, 30), saving ~99.5% of memory space.
-
 ```python
-predicted = S[:, np.newaxis, :, :] * \
-            prf[np.newaxis, :, :, :]
-```
+# Inputs:
+#   S: (n_timepoints, n_x, n_y) = (238, 30, 30)
+#   prf: (n_prfs, n_x, n_y) = (1000, 30, 30)
 
- * **Note: Computational graph optimizers like XLA can reduces the amount of memory
-overhead even more.**
+# Reshape for broadcasting:
+S_expanded = S[:, tf.newaxis, :, :]      # Shape: (238, 1, 30, 30)
+prf_expanded = prf[tf.newaxis, :, :, :]  # Shape: (1, 1000, 30, 30)
+
+# Vectorized operation (e.g., element-wise multiply):
+output = (S_expanded * prf_expanded).sum(axis=[2,3])  # Shape: (238, 1000)
+```
+**Memory savings**: 214M ($238 \times 1000 \times 30 \times 30$) → **1.1M** ($1000\times30\times30 + 238\times30\times30)$;99.5% reduction).
+
+**Key Idea**
+- **No `repmat`**: Use `tf.newaxis` to add singleton dimensions.
+- **Broadcasting**: TensorFlow automatically expands dimensions for element-wise ops.
+- **Efficiency**: Avoids copying data; computes on-the-fly.
+
+---
+### Why This Works
+- `S_expanded` and `prf_expanded` align via broadcasting rules.
+- **No memory blowup**: Only 2 small tensors are stored.
+ - **Efficiency**: Avoids copying data; computes on-the-fly.
+ - **XLA Optimization**: Fuses operations into a single computational graph, reducing overhead and accelerating execution.
 
 </div>
 
@@ -351,7 +364,7 @@ sns.despine()
 </div>
 
 ---
-### Hint 5:
+### Hint 5: Hemodynamic delay/temporal smoothing
 <div class="two-col" style="align-items: center; height: 100%;">
 
 <div class="col center vcenter" style="display: flex; flex-direction: column; justify-content: center;">

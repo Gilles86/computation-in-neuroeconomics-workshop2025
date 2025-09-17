@@ -131,6 +131,7 @@ $$
 <div class="two-col">
 <div class="col">
 
+- **"Jehee approach"**
 - **Fixed neural populations (fixed $\theta$)** + **linear weights**:
   $$
   x_j = \sum_i W_{i,j} \cdot f_j(\theta_j)
@@ -234,10 +235,11 @@ $$
 <div class="text-medium">
 
 **Steps**:
-1. Fit encoding model \( \theta \) (grid + gradient descent).
-2. Estimate noise covariance \( \Sigma \).
-3. Compute **posterior** \( p(s|x, \theta) \).
+1. Fit encoding model ($\theta$) (grid + gradient descent).
+2. Estimate noise covariance ($\Sigma$).
+3. Compute **posterior** ($p(s|x;\theta)$).
 4. Extract **mean posterior** or **MAP estimate**.
+5. (Extract **uncertainy** surrounding posterior)
 
 </div>
 
@@ -288,3 +290,5 @@ gd_pars = fitter.fit(init_pars=grid_pars)
 
 ---
 ### Assigment 4: Decoding visual stimuli
+
+Open `notebooks/4_decode.ipynb`.
