@@ -1,5 +1,7 @@
 # Soglio workshop on computational techniques for Neuroeconomics
 
+![width:300px](slides/resources/prf.png)
+
 Welcome on the repository for the workshop ***Making Your Models Fly: Computational Tools for Neuroeconomic Modeling*** which was presented by Gilles de Hollander on the 18th of September in Soglio, Switzerland.
 It consisted of a couple of presented 'vignettes' on CPUs vs GPUs, computational graphs, encoding models for fMRI, the Bayesian encoding/decoding framework, and how to efficiently implement efficient coding models for fitting/simulation.
 
