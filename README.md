@@ -1,4 +1,38 @@
-## Cloning this repository
+# Soglio workshop on computational techniques for Neuroeconomics
+
+Welcome on the repository for the workshop ***Making Your Models Fly: Computational Tools for Neuroeconomic Modeling*** which was presented by Gilles de Hollander on the 18th of September in Soglio, Switzerland.
+It consisted of a couple of presented 'vignettes' on CPUs vs GPUs, computational graphs, encoding models for fMRI, the Bayesian encoding/decoding framework, and how to efficiently implement efficient coding models for fitting/simulation.
+
+There are also a couple of exercises. To some extent, the answers to those exercises can be found in the `answers`-branch.
+
+## Slides:
+
+Slides were written using MARP and can be found in the [`slides`](slides)-directory, there are the following 4 vignettes:
+
+
+1. [Computational Graphs](https://www.gillesdehollander.nl/computation-in-neuroeconomics-workshop2025/slides/1_computational_graphs.html) ([PDF](slides/1_computational_graphs.pdf) / [Markdown](slides/1_computational_graphs.md))
+2. [Encoding Models for fMRI](https://www.gillesdehollander.nl/computation-in-neuroeconomics-workshop2025/slides/2_encoding_models.html) ([PDF](slides/2_encoding_models.pdf) / [Markdown](slides/2_encoding_models.md))
+3. [From Encoding to Decoding](https://www.gillesdehollander.nl/computation-in-neuroeconomics-workshop2025/slides/3_from_encoding_to_decoding.html) ([PDF](slides/3_from_encoding_to_decoding.pdf) / [Markdown](slides/3_from_encoding_to_decoding.md))
+4. [Efficient Coding](https://www.gillesdehollander.nl/computation-in-neuroeconomics-workshop2025/slides/4_efficient_coding.html) ([PDF](slides/4_efficient_coding.pdf) / [Markdown](slides/4_efficient_coding.md))
+
+
+
+## Exercises
+The exercises can be found in the (`exercises`)(exercises)-folder:
+
+ 1. The Graphs Underlying Computational graphs ([notebook](notebooks/1_computational_graphs.ipynb))
+ 2. Fast and slow implementations of the drift diffusion model ([notebook](notebooks/2_ddm_fast_and_slow.ipynb))
+ 3. Implementing a PRF model using Tensorflow (or Pytorch or Jax) ([notebook](notebooks/3_implement_prf.ipynb))
+ 4. Decoding a visual stimulus ([notebook](notebooks/4_decode.ipynb))
+ 5. Efficient coding, efficiently coded ([notebook](notebooks/5_efficient_coding.ipynb))
+
+## Further reading
+- [Braincoder tutorials](https://braincoder-devs.github.io/)  
+- [TensorFlow guide](https://www.tensorflow.org/guide)  
+
+
+
+# Cloning this repository
 
 To clone this repository locally or remotely, use the following commands in your terminal:
 
@@ -14,14 +48,10 @@ git clone git@github.com:Gilles86/computation-in-neuroeconomics-workshop2025.git
 ```
 
 This guide assumes you place the repository in `$HOME/git/computation-in-neuroeconomics-workshop2025`.
-# Computation in Neuroeconomics Workshop 2025
 
-Welcome to the workshop on computational techniques in Neuroeconomics 2025!  
-In this repository you will find all the information, slides, code, and environments you need.
+# Install environment
 
-## Install environment
-
-### Why install the Conda environments?
+## Why install the Conda environments?
 
 This workshop provides three Conda environment files to ensure everyone can run the code smoothly, regardless of setup:
 
@@ -136,14 +166,4 @@ DDM test successful: (1000, 100)
 ```
 
 (Don't worry about the warnings about oneDNN, cuDNN, etc. This is fine. The point is that it finds `GPU devices: [PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')]`)
-
-
-## Slides and resources
-
-### Slides
-You can find the raw Markdown, PDF, and HTML versions of the slides in the [slides](./slides) directory.
-
-### Further reading
-- [Braincoder tutorials](https://braincoder-devs.github.io/)  
-- [TensorFlow guide](https://www.tensorflow.org/guide)  
 
